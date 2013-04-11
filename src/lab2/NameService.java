@@ -20,7 +20,7 @@ public class NameService  {
      */
     public String extractLastName(String fullName) throws IllegalArgumentException{
         if(fullName == null || fullName==""){
-            throw IllegalArgumentException;
+            throw new IllegalArgumentException("Entry Required");
         }
         String[] nameParts = fullName.split(" ");
         return nameParts[LAST_NAME_IDX];
@@ -34,9 +34,18 @@ public class NameService  {
      * @return the first name
      */
     public String extractFirstName(String fullName) {
+        if(fullName.contains(",")){
+            String[] nameParts = fullName.split(",");
+            return nameParts[0];
+        }
+        
         String[] nameParts = fullName.split(" ");
-        return nameParts[FIRST_NAME_IDX];
+        if(nameParts[nameParts.length-1].length() <3){
+            return nameParts[nameParts.length-2];
+        }
+        return nameParts[nameParts.length-1];
     }
+    
 
     /**
      * Gets the length of a name.
